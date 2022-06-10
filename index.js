@@ -35,7 +35,8 @@ connection.query('SELECT woning.id, complex.adres FROM complex INNER JOIN woning
 
         qr_svg.pipe(require('fs').createWriteStream('./qr/' + filename + '/' + results[i].id + '.png'));
     }
-});
 
-// exit program
-process.exit();
+    // exit program
+    process.exit();
+    
+});
