@@ -1,0 +1,14 @@
+{
+  "name": "qr-generator",
+  "version": "1.0.0",
+  "description": "QR code generator voor project Woonzorg",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "Timo Heeringa",
+  "license": "ISC",
+  "dependencies": {
+    "qr-image": "^3.2.0"
+  }
+}
