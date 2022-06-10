@@ -27,7 +27,7 @@ connection.query('SELECT woning.id, complex.adres FROM complex INNER JOIN woning
         if (!fs.existsSync('qr')) {
             fs.mkdirSync('qr');
         }
-        
+
         //create directory for qr code if not exists
         if (!fs.existsSync('./qr/' + filename)) {
             fs.mkdirSync('./qr/' + filename);
@@ -36,3 +36,6 @@ connection.query('SELECT woning.id, complex.adres FROM complex INNER JOIN woning
         qr_svg.pipe(require('fs').createWriteStream('./qr/' + filename + '/' + results[i].id + '.png'));
     }
 });
+
+// exit program
+process.exit();
