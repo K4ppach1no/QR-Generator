@@ -33,10 +33,9 @@ connection.query('SELECT woning.id, complex.adres FROM complex INNER JOIN woning
             fs.mkdirSync('./qr/' + filename);
         }
 
-        qr_svg.pipe(require('fs').createWriteStream('./qr/' + filename + '/' + results[i].id + '.png'));
+        qr_svg.pipe(fs.createWriteStream('./qr/' + filename + '/' + results[i].id + '.png'));
     }
 
-    // exit program
-    process.exit();
-    
+    //close connection
+    connection.end();
 });
