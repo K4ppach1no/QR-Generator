@@ -23,6 +23,11 @@ connection.query('SELECT woning.id, complex.adres FROM complex INNER JOIN woning
         // remove illegal characters from adres for filename
         var filename = results[i].adres.replace(/[^a-zA-Z0-9]/g, '');
 
+        //create qr directory
+        if (!fs.existsSync('qr')) {
+            fs.mkdirSync('qr');
+        }
+        
         //create directory for qr code if not exists
         if (!fs.existsSync('./qr/' + filename)) {
             fs.mkdirSync('./qr/' + filename);
