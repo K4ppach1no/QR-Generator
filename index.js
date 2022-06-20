@@ -2,6 +2,9 @@ var mysql = require('mysql');
 var fs = require('fs');
 var qr = require('qr-image');
 var canvasLib = require('canvas');
+var cliProgress = require('cli-progress');
+
+var progress = new cliProgress.SingleBar({}, cliProgress.Presets.shades_classic);
 
 // Create a database connection
 var connection = mysql.createConnection({
@@ -16,13 +19,15 @@ connection.query('SELECT woning.id, complex.adres, woning.huisnummer FROM comple
     // handle error
     if (error) throw error;
 
+    progress.start(results.length, 0);
 
     //loop through results
     for (var i = 0; i < results.length; i++) {
 
         // check if all our variables exist
         if (results[i].id == null || results[i].adres == null || results[i].huisnummer == null) {
-            console.log("Error: one of the variables is null");
+            // skip this one
+            progress.update(i + 1);
         } else {
             // remove illegal characters from adres for filename
             var filename = results[i].adres.replace(/[^a-zA-Z0-9]/g, '');
@@ -73,15 +78,15 @@ connection.query('SELECT woning.id, complex.adres, woning.huisnummer FROM comple
                             if (err) {
                                 console.log(err);
                             } else {
-                                console.log("The file was saved!" + filepath);
+                                progress.increment();
                                 // resolve the promise
                                 resolve();
                             }
                         });
                     }
                 });
-            }
-            );
+            });
+
             // wait for the promise to finish
             await promise;
         }
@@ -89,4 +94,5 @@ connection.query('SELECT woning.id, complex.adres, woning.huisnummer FROM comple
 
     //close connection
     connection.end();
+    progress.stop();
 });

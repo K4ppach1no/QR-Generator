@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "canvas": "^2.9.1",
+    "cli-progress": "^3.11.1",
     "qr-image": "^3.2.0"
   }
 }
